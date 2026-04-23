@@ -1,0 +1,44 @@
+{
+  "name": "@novellia/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepare": "npm run build"
+  },
+  "exports": {
+    "./schema/auth": {
+      "types": "./dist/schema/auth.d.ts",
+      "default": "./dist/schema/auth.js"
+    },
+    "./schema/route-params": {
+      "types": "./dist/schema/route-params.d.ts",
+      "default": "./dist/schema/route-params.js"
+    },
+    "./schema/pet": {
+      "types": "./dist/schema/pet.d.ts",
+      "default": "./dist/schema/pet.js"
+    },
+    "./schema/medical-record": {
+      "types": "./dist/schema/medical-record.d.ts",
+      "default": "./dist/schema/medical-record.js"
+    },
+    "./prisma/enums": {
+      "types": "./dist/generated/prisma/enums.d.ts",
+      "default": "./dist/generated/prisma/enums.js"
+    },
+    "./prisma/browser": {
+      "types": "./dist/generated/prisma/browser.d.ts",
+      "default": "./dist/generated/prisma/browser.js"
+    }
+  },
+  "dependencies": {
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

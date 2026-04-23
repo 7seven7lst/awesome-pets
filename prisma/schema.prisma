@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../server/src/generated/prisma"
+}
+
+generator shared {
+  provider = "prisma-client"
+  output   = "../shared/src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  STAFF
+}
+
+enum AnimalType {
+  DOG
+  CAT
+  BIRD
+  RABBIT
+  OTHER
+}
+
+enum MedicalRecordType {
+  VACCINE
+  ALLERGY
+}
+
+enum AllergySeverity {
+  MILD
+  SEVERE
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  role         UserRole @default(OWNER)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  pets         Pet[]
+
+  @@map("users")
+}
+
+model Pet {
+  id             String          @id @default(uuid()) @db.Uuid
+  name           String
+  imageUrl       String?         @db.VarChar(512) @map("image_url")
+  description    String?         @db.Text
+  animalType     AnimalType      @map("animal_type")
+  dateOfBirth    DateTime        @map("date_of_birth")
+  ownerId        String?         @db.Uuid @map("owner_id")
+  owner          User?           @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  medicalRecords MedicalRecord[]
+  createdAt      DateTime        @default(now()) @map("created_at")
+  updatedAt      DateTime        @updatedAt @map("updated_at")
+
+  @@index([name])
+  @@index([animalType])
+  @@index([ownerId])
+  @@map("pets")
+}
+
+model MedicalRecord {
+  id            String            @id @default(uuid()) @db.Uuid
+  petId         String            @db.Uuid @map("pet_id")
+  pet           Pet               @relation(fields: [petId], references: [id], onDelete: Cascade)
+  recordType    MedicalRecordType @map("record_type")
+  vaccineRecord VaccineRecord?
+  allergyRecord AllergyRecord?
+  createdAt     DateTime          @default(now()) @map("created_at")
+  updatedAt     DateTime          @updatedAt @map("updated_at")
+
+  @@index([petId])
+  @@index([recordType])
+  @@map("medical_records")
+}
+
+model VaccineRecord {
+  medicalRecordId String        @id @db.Uuid @map("medical_record_id")
+  medicalRecord   MedicalRecord @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+  vaccineName     String        @map("vaccine_name")
+  administeredAt  DateTime      @map("administered_at")
+  nextDueAt       DateTime?     @map("next_due_at")
+
+  @@map("vaccine_records")
+}
+
+model AllergyRecord {
+  medicalRecordId String          @id @db.Uuid @map("medical_record_id")
+  medicalRecord   MedicalRecord   @relation(fields: [medicalRecordId], references: [id], onDelete: Cascade)
+  allergyName     String          @map("allergy_name")
+  reactions       String
+  severity        AllergySeverity
+
+  @@map("allergy_records")
+}
