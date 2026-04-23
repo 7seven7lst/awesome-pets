@@ -10,20 +10,28 @@ Target duration: **8-10 minutes**.
 Before I start the walkthrough, here is how to run this project locally.
 
 Prerequisites:
-- Docker
-- Node.js 20+
-- npm 10+
+- Node.js 20+ and npm 10+
+- Docker only if you use the bundled Postgres (`make db_up`)
 
-At the repo root, run:
+**Step 1 — root `.env`:** copy `.env.example` to `.env` at the repo root and set at least `DATABASE_URL` and `JWT_SECRET` (see comments in `.env.example`).
+
+**Step 2 — database (optional):** either run `make db_up` for Docker Postgres from this repo, or point `DATABASE_URL` at your own Postgres. If you change port or database in `docker-compose.yml`, update `DATABASE_URL` to match.
+
+**Step 3 — install:** after the database is reachable:
 
 ```bash
 make install
+```
+
+This installs dependencies, builds the shared package, syncs `.env` to `server/.env`, runs migrations, and seeds.
+
+**Step 4 — run:**
+
+```bash
 make dev
 ```
 
-What those do:
-- `make install`: starts Postgres in Docker, installs dependencies for root/client/server/shared, builds shared package, runs Prisma migration, and seeds demo data.
-- `make dev`: starts backend on `http://localhost:3001` and frontend on `http://localhost:5173`.
+Frontend is on port 5173; the API uses `BACKEND_PORT` from `.env` (default 3001).
 
 For this demo, I will use seeded users like `admin@novellia.test` / `owner@novellia.test` with password `password`.
 

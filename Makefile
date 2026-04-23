@@ -1,11 +1,11 @@
-.PHONY: up install dev
+.PHONY: db_up install dev
 
 # Start Postgres and wait for the healthcheck to pass before returning.
-up:
+db_up:
 	docker compose up -d --wait
 
-# Full first-time setup (runs `make up` first):
-install: up
+# Full first-time setup (runs `make db_up` first):
+install:
 	test -f .env || cp .env.example .env
 	cp .env server/.env
 	npm install
