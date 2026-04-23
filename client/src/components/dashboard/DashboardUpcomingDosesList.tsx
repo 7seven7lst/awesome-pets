@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { DashboardUpcomingVaccineRow } from "../../api";
 import { ROUTES } from "../../lib/routes";
+import { PetAvatar } from "../PetAvatar";
 import { SpinnerInline } from "../Spinner";
 import { PaginationBar } from "../PaginationBar";
 import { animalTypeLabel } from "../../lib/labels";
@@ -60,9 +61,16 @@ export function DashboardUpcomingDosesList({
                 {payload.vaccines.map((v) => (
                   <tr key={v.medicalRecordId}>
                     <td className={td}>
-                          <Link to={ROUTES.petDetail(v.medicalRecord.pet.id)} className={link}>
-                        {v.medicalRecord.pet.name}
-                      </Link>
+                      <div className="flex min-w-0 items-center gap-3">
+                        <PetAvatar
+                          name={v.medicalRecord.pet.name}
+                          imageUrl={v.medicalRecord.pet.imageUrl}
+                          size={36}
+                        />
+                        <Link to={ROUTES.petDetail(v.medicalRecord.pet.id)} className={`${link} min-w-0 truncate`}>
+                          {v.medicalRecord.pet.name}
+                        </Link>
+                      </div>
                     </td>
                     <td className={td}>{animalTypeLabel(v.medicalRecord.pet.animalType as AnimalType)}</td>
                     <td className={td}>{v.vaccineName}</td>
