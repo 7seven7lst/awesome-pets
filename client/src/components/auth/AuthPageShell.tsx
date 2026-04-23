@@ -1,6 +1,6 @@
 import { memo, type ReactNode } from "react";
 import { SpinnerWithLabel } from "../Spinner";
-import { narrowPage } from "../../lib/ui-styles";
+import { muted, narrowPage } from "../../lib/ui-styles";
 
 export type AuthPageShellProps = {
   loading: boolean;
