@@ -1,5 +1,9 @@
 # Novellia Pets
 
+## Demo Videos
+https://www.loom.com/share/68279ce5008a448ab1e667e4fc347cbe (demo + some arch)
+https://www.loom.com/share/bf9eaaeeb7594629b52cb2d3880c21a4 (more arch)
+
 ## Tech Stack
 
 - Frontend: `React` + `TypeScript` + `Vite` + `Tailwind CSS`
