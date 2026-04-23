@@ -39,11 +39,11 @@ Start the bundled database (waits until Postgres is healthy):
 make db_up
 ```
 
-This uses `docker-compose.yml` (default: host port **5435**, database **`novellia_pets`**, user **`postgres`**, trust auth). If you change port, database name, or user in `docker-compose.yml`, update **`DATABASE_URL`** in your root `.env`** so it stays in sync.
+This uses `docker-compose.yml` (default: host port **5435**, database **`novellia_pets`**, user **`postgres`**, trust auth). If you change port, database name, or user in `docker-compose.yml`, update `DATABASE_URL` in your root `.env` so it stays in sync.
 
 **Option B — Your own Postgres**
 
-Skip `make db_up`. Set **`DATABASE_URL`** in root `.env`** to your instance (host, port, database, credentials).
+Skip `make db_up`. Set `DATABASE_URL` in your root `.env` to your instance (host, port, database, credentials).
 
 ### 3) Install, migrate, and seed
 
@@ -73,3 +73,20 @@ Password for all seeded users: **`password`**
 - `admin@novellia.test` (Admin)
 - `owner@novellia.test` (Owner)
 - `owner2@novellia.test` to `owner5@novellia.test` (Owners)
+
+---
+
+## Additional features
+
+Beyond the core take-home requirements, this submission includes:
+
+- **Sign up and sign in** — JWT session with an httpOnly cookie for the browser, plus `Authorization: Bearer` support for API clients.
+- **Role-based access** — **Admin** users see organization-wide pets and dashboard stats; **Owner** users are scoped to pets they own. Try the seeded `admin@novellia.test` vs `owner@novellia.test` accounts (same password as above).
+- **Pet photo upload** — Add or edit a pet and attach an image; stored on the server and shown in lists and detail views.
+- **Medical records CSV download** — On a pet’s detail page, export that pet’s medical history as a CSV file (generated client-side from loaded data).
+
+---
+
+## AI tooling
+
+This project was built with assistance from **Cursor**.
