@@ -5,6 +5,7 @@ import type {
   PetMedicalRecordsPayload,
   PetMedicalRecordsRecordFilter,
 } from "../../hooks/usePetMedicalRecords";
+import { SpinnerInline } from "../Spinner";
 import { PaginationBar } from "../PaginationBar";
 import { recordTypeLabel, severityLabel } from "../../lib/labels";
 import {
@@ -87,7 +88,7 @@ export function PetMedicalRecordsPanel({
       </div>
 
       {error ? <div className={banner}>{error}</div> : null}
-      {loading ? <p className={muted}>Updating records…</p> : null}
+      {loading ? <SpinnerInline message="Updating records…" className="mt-2" /> : null}
 
       {recordPagination.total === 0 && !loading && !error ? (
         <p className={muted}>No records for this filter.</p>

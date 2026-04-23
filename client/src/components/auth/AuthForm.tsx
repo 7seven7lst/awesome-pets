@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import { useForm, type Resolver } from "react-hook-form";
 import { toast } from "react-toastify";
 import { signInSchema, signUpSchema } from "@novellia/shared/schema/auth";
+import { Spinner } from "../Spinner";
 import { FieldError } from "../../lib/field-error";
 import { apiError } from "../../lib/apiError";
 import { banner, btnPrimaryBlock, card, field, label, muted, stack } from "../../lib/ui-styles";
@@ -115,8 +116,15 @@ export function AuthForm({ mode, onSubmit }: AuthFormProps) {
 
         {mode === "sign-up" ? <p className={`${muted} -mt-2`}>At least 8 characters.</p> : null}
 
-        <button className={btnPrimaryBlock} type="submit" disabled={isSubmitting}>
-          {isSubmitting ? submittingLabel : submitLabel}
+        <button className={`${btnPrimaryBlock} gap-2`} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Spinner size="sm" tone="onDark" decorative />
+              {submittingLabel}
+            </>
+          ) : (
+            submitLabel
+          )}
         </button>
       </form>
     </>

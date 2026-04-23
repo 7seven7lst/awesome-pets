@@ -12,6 +12,7 @@ import {
 import type { z } from "zod";
 import { createRecord, updateRecord } from "../../api";
 import { isoToLocalDateInput } from "../../lib/calendar-date";
+import { Spinner } from "../Spinner";
 import { FieldError } from "../../lib/field-error";
 import { buildCreateMedicalRecordBody, buildUpdateMedicalRecordBody } from "../../lib/medical-record-request-body";
 import { banner, btnOutline, btnPrimary, field, label, stack } from "../../lib/ui-styles";
@@ -94,8 +95,15 @@ export function AddMedicalRecordForm({
           <MedicalRecordAllergyFields register={register} errors={errors} />
         )}
 
-        <button className={`${btnPrimary} w-fit`} type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : "Add record"}
+        <button className={`${btnPrimary} w-fit gap-2`} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Spinner size="sm" tone="onDark" decorative />
+              Saving…
+            </>
+          ) : (
+            "Add record"
+          )}
         </button>
       </form>
     </>
@@ -169,8 +177,15 @@ export function EditMedicalRecordForm({
         <button type="button" className={btnOutline} onClick={onCancel}>
           Cancel
         </button>
-        <button className={btnPrimary} type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : "Save changes"}
+        <button className={`${btnPrimary} gap-2`} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Spinner size="sm" tone="onDark" decorative />
+              Saving…
+            </>
+          ) : (
+            "Save changes"
+          )}
         </button>
       </div>
     </form>

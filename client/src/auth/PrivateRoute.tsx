@@ -1,6 +1,8 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { SpinnerWithLabel } from "../components/Spinner";
+import { ROUTES } from "../lib/routes";
+import { page } from "../lib/ui-styles";
 import { useAuth } from "./AuthContext";
-import { muted, page } from "../lib/ui-styles";
 
 export function PrivateRoute() {
   const { user, loading } = useAuth();
@@ -8,14 +10,14 @@ export function PrivateRoute() {
 
   if (loading) {
     return (
-      <div className={`min-h-screen bg-zinc-50 ${page}`}>
-        <p className={muted}>Checking session…</p>
+      <div className={`flex min-h-screen items-center justify-center bg-zinc-50 ${page}`}>
+        <SpinnerWithLabel message="Checking session…" />
       </div>
     );
   }
 
   if (!user) {
-    return <Navigate to="/sign-in" replace state={{ from: location.pathname }} />;
+    return <Navigate to={ROUTES.signIn} replace state={{ from: location.pathname }} />;
   }
 
   return <Outlet />;

@@ -2,8 +2,9 @@ import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import { Layout } from "./components/Layout";
+import { SpinnerWithLabel } from "./components/Spinner";
 import { PATHS } from "./lib/routes";
-import { muted, page } from "./lib/ui-styles";
+import { page } from "./lib/ui-styles";
 
 const DashboardPage = lazy(() =>
   import("./pages/DashboardPage").then((m) => ({ default: m.DashboardPage })),
@@ -29,8 +30,8 @@ const SignUpPage = lazy(() =>
 
 function PageFallback() {
   return (
-    <div className={`min-h-screen bg-zinc-50 ${page}`}>
-      <p className={muted}>Loading…</p>
+    <div className={`flex min-h-screen items-center justify-center bg-zinc-50 ${page}`}>
+      <SpinnerWithLabel message="Loading page…" />
     </div>
   );
 }

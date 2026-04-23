@@ -1,6 +1,7 @@
 import type { ChangeEvent, FormEventHandler } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { Spinner } from "../Spinner";
 import { ANIMAL_TYPES, petCreateApiSchema } from "@novellia/shared/schema/pet";
 import type { z } from "zod";
 import { PetAvatar } from "../PetAvatar";
@@ -121,8 +122,15 @@ export function PetEditorForm({
       ) : null}
 
       <div className={`${row} gap-3 pt-2`}>
-        <button className={btnPrimary} type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Saving…" : "Save"}
+        <button className={`${btnPrimary} gap-2`} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? (
+            <>
+              <Spinner size="sm" tone="onDark" decorative />
+              Saving…
+            </>
+          ) : (
+            "Save"
+          )}
         </button>
         <Link to={mode === "edit" && petId ? `/pets/${petId}` : "/pets"} className={link}>
           Cancel

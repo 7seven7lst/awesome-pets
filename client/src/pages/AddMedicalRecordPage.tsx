@@ -1,4 +1,5 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { SpinnerWithLabel } from "../components/Spinner";
 import { AddMedicalRecordForm } from "../components/pet-detail/PetDetailRecordForm";
 import { PetMiniSummaryRow } from "../components/pet-detail/PetMiniSummaryRow";
 import { usePet } from "../hooks/usePet";
@@ -15,7 +16,11 @@ export function AddMedicalRecordPage() {
   }
 
   if (loading) {
-    return <p className={muted}>Loading…</p>;
+    return (
+      <div className="flex min-h-[40vh] items-center justify-center">
+        <SpinnerWithLabel message="Loading…" />
+      </div>
+    );
   }
 
   if (error || !pet) {

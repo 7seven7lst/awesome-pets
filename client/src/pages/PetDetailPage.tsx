@@ -3,10 +3,11 @@ import { PetDetailEditRecordDialog } from "../components/pet-detail/PetDetailEdi
 import { PetDetailProfileCard } from "../components/pet-detail/PetDetailProfileCard";
 import { PetMedicalRecordsPanel } from "../components/pet-detail/PetMedicalRecordsPanel";
 import { ConfirmDialog } from "../components/ConfirmDialog";
+import { SpinnerWithLabel } from "../components/Spinner";
 import { usePet } from "../hooks/usePet";
 import { usePetDetailActions } from "../hooks/usePetDetailActions";
 import { usePetMedicalRecords } from "../hooks/usePetMedicalRecords";
-import { banner, link, muted, stack } from "../lib/ui-styles";
+import { banner, link, stack } from "../lib/ui-styles";
 import { ROUTES } from "../lib/routes";
 
 export function PetDetailPage() {
@@ -25,7 +26,11 @@ export function PetDetailPage() {
   }
 
   if (loading && !pet) {
-    return <p className={muted}>Loading pet…</p>;
+    return (
+      <div className="flex min-h-[40vh] items-center justify-center">
+        <SpinnerWithLabel message="Loading pet…" />
+      </div>
+    );
   }
 
   if (!pet) {

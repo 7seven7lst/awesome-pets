@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import type { DashboardUpcomingVaccineRow } from "../../api";
 import { ROUTES } from "../../lib/routes";
+import { SpinnerInline } from "../Spinner";
 import { PaginationBar } from "../PaginationBar";
 import { animalTypeLabel } from "../../lib/labels";
 import { card, h2, link, muted, table, tableWrap, td, th } from "../../lib/ui-styles";
@@ -37,7 +38,7 @@ export function DashboardUpcomingDosesList({
     <div className={card}>
       <h2 className={h2}>Upcoming doses (list)</h2>
       <DashboardErrorAlert message={error} className="mt-2" />
-      {loading ? <p className={`${muted} mt-2`}>Loading list…</p> : null}
+      {loading ? <SpinnerInline message="Loading list…" className="mt-3" /> : null}
       {!loading && !error && payload !== null && total === 0 ? (
         <p className={`${muted} mt-2`}>No rows in this window.</p>
       ) : payload !== null && total > 0 ? (

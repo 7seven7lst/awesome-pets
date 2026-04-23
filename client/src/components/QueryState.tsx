@@ -1,4 +1,5 @@
 import { memo, type ReactNode } from "react";
+import { SpinnerWithLabel } from "./Spinner";
 import { banner, muted } from "../lib/ui-styles";
 
 export type QueryStateProps = {
@@ -23,7 +24,7 @@ export const QueryState = memo(function QueryState({
   emptyText = "No results.",
   children,
 }: QueryStateProps) {
-  if (loading) return <p className={muted}>{loadingText}</p>;
+  if (loading) return <SpinnerWithLabel message={loadingText} className="w-full" />;
   if (error) return <div className={banner}>{error}</div>;
   if (empty) return <p className={muted}>{emptyText}</p>;
   return <>{children}</>;

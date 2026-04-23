@@ -1,5 +1,6 @@
 import { memo, type ReactNode } from "react";
-import { muted, narrowPage } from "../../lib/ui-styles";
+import { SpinnerWithLabel } from "../Spinner";
+import { narrowPage } from "../../lib/ui-styles";
 
 export type AuthPageShellProps = {
   loading: boolean;
@@ -26,7 +27,13 @@ export const AuthPageShell = memo(function AuthPageShell({ loading, children }: 
   return (
     <div className={`min-h-screen bg-zinc-50 ${narrowPage}`}>
       <AuthBrand />
-      {loading ? <p className={muted}>Checking session…</p> : children}
+      {loading ? (
+        <div className="flex justify-center py-6">
+          <SpinnerWithLabel message="Checking session…" />
+        </div>
+      ) : (
+        children
+      )}
     </div>
   );
 });
