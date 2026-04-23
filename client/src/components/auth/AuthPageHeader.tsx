@@ -9,7 +9,7 @@ export type AuthPageHeaderProps = {
 export const AuthPageHeader = memo(function AuthPageHeader({ title, subtitle }: AuthPageHeaderProps) {
   return (
     <>
-      <h1 className={h1}>{title}</h1>
+      <h2 className={h1}>{title}</h2>
       <p className={`${muted} mt-2`}>{subtitle}</p>
     </>
   );
