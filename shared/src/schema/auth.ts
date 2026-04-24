@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { UserRole } from "../generated/prisma/browser";
+
+enum UserRole {
+  OWNER = 'OWNER',
+  ADMIN = 'ADMIN',
+  STAFF = 'STAFF'
+} 
 
 export const signInSchema = z.object({
   email: z.email(),
